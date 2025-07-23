@@ -7,7 +7,7 @@ The KPIs should be queried and stored in weekly periods
 
 ## Requirements
 
-### 1. Script Functionality
+### Script Functionality
 
 Your script should:
 - Query, Extract and process the KPI metrics
@@ -15,7 +15,7 @@ Your script should:
 - Handle errors gracefully
 - Include proper logging
 
-### 2. Data to Extract
+### Data to Extract
 
 #### From "Views and Edits Dashboard" (PostgreSQL datasource):
 - General views (weekly totals for past 6 weeks)
@@ -28,10 +28,14 @@ Your script should:
 - Get the data for each minute from the past 30 minutes (note that prometheus only exports while the docker compose is running)
 
 
-### 4. Technical Requirements
+### Technical Requirements
 
 - The code should have a clear documentation for setup, execution and results (not too much not too less)
 - Implement proper exception handling
 - Include informative log messages
+- Include automated tests (unit and integration)
+
+### Result & Delivery
+- The script should be delivered as a private repository and the reviewers should have access to it
 
 Good luck! 
