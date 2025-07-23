@@ -1,0 +1,329 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus-alarms"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 50
+              },
+              {
+                "color": "red",
+                "value": 200
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "gauge"
+                }
+              },
+              {
+                "id": "max",
+                "value": 1000
+              },
+              {
+                "id": "min",
+                "value": 0
+              },
+              {
+                "id": "displayName",
+                "value": "Total Count"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Total Count"
+          }
+        ]
+      },
+      "pluginVersion": "10.2.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus-alarms"
+          },
+          "editorMode": "code",
+          "expr": "label_replace(alarm_total_api_response_time_high_total, \"alarm_name\", \"API Response Time High\", \"\", \"\")",
+          "format": "table",
+          "instant": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus-alarms"
+          },
+          "editorMode": "code",
+          "expr": "label_replace(alarm_total_authentication_failure_total, \"alarm_name\", \"Authentication Failure\", \"\", \"\")",
+          "format": "table",
+          "instant": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus-alarms"
+          },
+          "editorMode": "code",
+          "expr": "label_replace(alarm_total_backup_failed_total, \"alarm_name\", \"Backup Failed\", \"\", \"\")",
+          "format": "table",
+          "instant": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus-alarms"
+          },
+          "editorMode": "code",
+          "expr": "label_replace(alarm_total_cache_miss_rate_high_total, \"alarm_name\", \"Cache Miss Rate High\", \"\", \"\")",
+          "format": "table",
+          "instant": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus-alarms"
+          },
+          "editorMode": "code",
+          "expr": "label_replace(alarm_total_database_connection_timeout_total, \"alarm_name\", \"Database Connection Timeout\", \"\", \"\")",
+          "format": "table",
+          "instant": true,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus-alarms"
+          },
+          "editorMode": "code",
+          "expr": "label_replace(alarm_total_disk_space_low_total, \"alarm_name\", \"Disk Space Low\", \"\", \"\")",
+          "format": "table",
+          "instant": true,
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus-alarms"
+          },
+          "editorMode": "code",
+          "expr": "label_replace(alarm_total_high_cpu_usage_total, \"alarm_name\", \"High CPU Usage\", \"\", \"\")",
+          "format": "table",
+          "instant": true,
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus-alarms"
+          },
+          "editorMode": "code",
+          "expr": "label_replace(alarm_total_log_file_size_exceeded_total, \"alarm_name\", \"Log File Size Exceeded\", \"\", \"\")",
+          "format": "table",
+          "instant": true,
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus-alarms"
+          },
+          "editorMode": "code",
+          "expr": "label_replace(alarm_total_memory_leak_detected_total, \"alarm_name\", \"Memory Leak Detected\", \"\", \"\")",
+          "format": "table",
+          "instant": true,
+          "refId": "I"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus-alarms"
+          },
+          "editorMode": "code",
+          "expr": "label_replace(alarm_total_network_latency_high_total, \"alarm_name\", \"Network Latency High\", \"\", \"\")",
+          "format": "table",
+          "instant": true,
+          "refId": "J"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus-alarms"
+          },
+          "editorMode": "code",
+          "expr": "label_replace(alarm_total_queue_overflow_total, \"alarm_name\", \"Queue Overflow\", \"\", \"\")",
+          "format": "table",
+          "instant": true,
+          "refId": "K"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus-alarms"
+          },
+          "editorMode": "code",
+          "expr": "label_replace(alarm_total_rate_limit_exceeded_total, \"alarm_name\", \"Rate Limit Exceeded\", \"\", \"\")",
+          "format": "table",
+          "instant": true,
+          "refId": "L"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus-alarms"
+          },
+          "editorMode": "code",
+          "expr": "label_replace(alarm_total_service_unavailable_total, \"alarm_name\", \"Service Unavailable\", \"\", \"\")",
+          "format": "table",
+          "instant": true,
+          "refId": "M"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus-alarms"
+          },
+          "editorMode": "code",
+          "expr": "label_replace(alarm_total_ssl_certificate_expiring_total, \"alarm_name\", \"SSL Certificate Expiring\", \"\", \"\")",
+          "format": "table",
+          "instant": true,
+          "refId": "N"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus-alarms"
+          },
+          "editorMode": "code",
+          "expr": "label_replace(alarm_total_user_session_timeout_total, \"alarm_name\", \"User Session Timeout\", \"\", \"\")",
+          "format": "table",
+          "instant": true,
+          "refId": "O"
+        }
+      ],
+      "title": "Alarms Summary (Based on Selected Time Range)",
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "instance": true,
+              "job": true,
+              "__name__": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "Value": "Total Count",
+              "alarm_name": "Alarm Name"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [
+    "alarms"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "2025-06-11T00:00:00.000Z",
+    "to": "2025-07-23T23:59:59.000Z"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Alarms Dashboard",
+  "uid": "alarms-dashboard",
+  "version": 1,
+  "weekStart": ""
+} 

@@ -1,0 +1,23 @@
+apiVersion: 1
+
+datasources:
+  - name: PostgreSQL
+    uid: postgres-kpis
+    type: postgres
+    access: proxy
+    url: postgres:5432
+    database: kpis
+    user: admin
+    isDefault: true
+    jsonData:
+      sslmode: disable
+      postgresVersion: 1500
+    secureJsonData:
+      password: adminpass123
+
+  - name: Prometheus
+    uid: prometheus-alarms
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: false 
