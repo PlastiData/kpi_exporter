@@ -33,7 +33,7 @@ docker compose up -d
 ## Google Sheets Integration
 
 - **Sheet ID:** Configure in `docker-compose.yml` as `GOOGLE_SHEET_ID` 
-- **Service Account:** Place `service_account.json` in `kpi_extractor/solution/` (I'm giving it for this student task but I will be removed after 1 week)
+- **Service Account:** Place `service_account.json` in `kpi_extractor/solution/` (I'm giving it for this student task but it will be removed after 1 week)
 - **Sheet ID:** 1EGVPWB4kc49Fqo4genpmdU9Zol3wNMycvQlzR74yCPA (Personal ID, can be modified for other google sheet ID)
 
 ### Example `service_account.json` content
@@ -51,7 +51,13 @@ docker compose up -d
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/your-service-account%40your-project.iam.gserviceaccount.com"
 }
 ```
-
+### Local Excel Export (Fallback)
+- **Automatic fallback** if Google Sheets connection fails
+- **File:** `sheets.xlsx` (created in container/app directory)
+- **Sheets:** 
+  - `prometheus_alarms` - Alarm data from Prometheus
+  - `postgres_metrics` - Views/edits data from PostgreSQL
+- **No configuration required** - works automatically when Google Sheets is unavailable
 
 
 ## Cleanup
