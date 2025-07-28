@@ -32,9 +32,9 @@ docker compose up -d
 
 ## Google Sheets Integration
 
-- **Sheet ID:** Configure in `docker-compose.yml` as `GOOGLE_SHEET_ID`
-- **Service Account:** Place `service_account.json` in `kpi_extractor/solution/` (see example below)
-- **Sheet ID:** 1EGVPWB4kc49Fqo4genpmdU9Zol3wNMycvQlzR74yCPA
+- **Sheet ID:** Configure in `docker-compose.yml` as `GOOGLE_SHEET_ID` 
+- **Service Account:** Place `service_account.json` in `kpi_extractor/solution/` (I'm giving it for this student task but I will be removed after 1 week)
+- **Sheet ID:** 1EGVPWB4kc49Fqo4genpmdU9Zol3wNMycvQlzR74yCPA (Personal ID, can be modified for other google sheet ID)
 
 ### Example `service_account.json` content
 ```json
