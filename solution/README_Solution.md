@@ -20,13 +20,13 @@ docker compose up -d
 
 1. **Export KPIs:**
   ```bash
-  docker compose run --rm google-sheets-exporter
+  docker compose run --rm kpi-exporter
   ```
 - Fetches data from Prometheus and PostgreSQL, exports to the configured Google Sheet.
 
 2. **Run Tests:**
   ```bash
-  docker compose run --rm --entrypoint="" google-sheets-exporter pytest -v -s
+  docker compose run --rm --entrypoint="" kpi-exporter pytest -v -s
   ```
 - Runs all unit tests inside the exporter container.
 
@@ -74,5 +74,5 @@ docker compose down -v
 - For general environment, dashboard, and troubleshooting info, see the main `README.md`.
 - If you modify the solution code, rebuild the container:
    ```bash
-   docker compose build google-sheets-exporter
+   docker compose build kpi-exporter
    ```

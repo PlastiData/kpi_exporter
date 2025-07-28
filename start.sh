@@ -17,7 +17,7 @@ fi
 
 # Start services
 echo "📦 Starting services..."
-docker compose up -d
+docker compose up -d --remove-orphans
 
 # Wait for services to be ready
 echo "⏳ Waiting for services to initialize..."

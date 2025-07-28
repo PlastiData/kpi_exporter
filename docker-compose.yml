@@ -79,10 +79,10 @@ services:
     networks:
       - monitoring
 
-  google-sheets-exporter:
+  sheets-exporter:
     build:
       context: ./solution
-    container_name: google-sheets-exporter
+    container_name: sheets-exporter
     environment:
       - PYTHONPATH=/app
       - POSTGRES_HOST=postgres
