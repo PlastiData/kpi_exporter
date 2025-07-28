@@ -1,6 +1,6 @@
 # Google Sheets KPI Exporter - Solution Guide
 
-This folder contains the complete solution for extracting KPIs from Grafana dashboards and exporting them to Google Sheets. It includes:
+This folder contains the complete solution for extracting KPIs from PostgreSQL and Prometheus and exporting them to Google Sheets. It includes:
 
 - **`export_kpis.py`** - Main script that queries PostgreSQL and Prometheus data
 - **`service_account.json`** - Google Sheets API credentials (included in repo just for exam purposes)
@@ -11,21 +11,16 @@ This folder contains the complete solution for extracting KPIs from Grafana dash
 ## Prerequisites
 
 - Docker environment running (see main `README.md` for setup)
-- Google Sheet ID configured in `docker-compose.yml`
-- `service_account.json` file in `kpi_extractor/solution/`
 
 ## Quick Start
 
 1. **Start all services:**
+- Make shure the main docker file is running
+
    ```bash
    docker compose up -d
    ```
    (Wait ~30 seconds for initialization)
-
-   **Note:** If you modify the solution code, rebuild the container:
-   ```bash
-   docker compose build google-sheets-exporter
-   ```
 
 2. **Export KPIs to Google Sheets:**
    ```bash
@@ -81,3 +76,7 @@ docker compose down -v
 - All configuration (database, Google Sheet ID, etc.) is managed in `docker-compose.yml`.
 - No `.env` file is needed.
 - For general environment, dashboard, and troubleshooting info, see the main `README.md`.
+- If you modify the solution code, rebuild the container:
+   ```bash
+   docker compose build google-sheets-exporter
+   ```
