@@ -57,3 +57,4 @@ Thumbs.db
 # Student submissions (if used for evaluation)
 submissions/
 solutions/ 
+.pytest_cache/ 
