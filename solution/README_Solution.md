@@ -11,28 +11,24 @@ This folder contains the complete solution for extracting KPIs from PostgreSQL a
 ## Prerequisites
 
 - Docker environment running (see main `README.md` for setup)
+```bash
+docker compose up -d
+```
+(Wait ~30 seconds for initialization)
 
-## Quick Start
+## How to Run
 
-1. **Start all services:**
-- Make shure the main docker file is running
+- **Export KPIs:**
+  ```bash
+  docker compose run --rm google-sheets-exporter
+  ```
+- Fetches data from Prometheus and PostgreSQL, exports to the configured Google Sheet.
 
-   ```bash
-   docker compose up -d
-   ```
-   (Wait ~30 seconds for initialization)
-
-2. **Export KPIs to Google Sheets:**
-   ```bash
-   docker compose run --rm google-sheets-exporter
-   ```
-   - Fetches data from Prometheus and PostgreSQL, exports to the configured Google Sheet.
-
-3. **Run all tests:**
-   ```bash
-   docker compose run --rm --entrypoint="" google-sheets-exporter pytest -v -s
-   ```
-   - Runs all unit tests inside the exporter container.
+- **Run Tests:**
+  ```bash
+  docker compose run --rm --entrypoint="" google-sheets-exporter pytest -v -s
+  ```
+- Runs all unit tests inside the exporter container.
 
 ## Google Sheets Integration
 
@@ -56,12 +52,6 @@ This folder contains the complete solution for extracting KPIs from PostgreSQL a
 }
 ```
 
-## How to Run
-
-- **Export KPIs:**
-  `docker compose run --rm google-sheets-exporter`
-- **Run Tests:**
-  `docker compose run --rm --entrypoint="" google-sheets-exporter pytest -v -s`
 
 
 ## Cleanup
