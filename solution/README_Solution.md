@@ -14,20 +14,20 @@ This folder contains the complete solution for extracting KPIs from PostgreSQL a
 
 **Required:** You need to download the `service_account.json` file before running the exporter.
 
+**Gmail Credentials:**
+- **Account:** studentapplication072025@gmail.com
+- **Password:** Admin123!
+
 **Steps:**
 1. Go to [Google Cloud Console](https://console.cloud.google.com/)
 2. Navigate to **APIs & Services** → **Credentials**
 3. Find the service account named **"export_kpis"**
-4. Click the **Actions** button (⋮) → **Edit**
+4. Go to **Actions** → click the **Edit** button (pencil icon) → **Edit service account**
 5. Go to the **Keys** tab
 6. Click **Add Key** → **Create new key**
 7. Select **JSON** format
 8. Click **Create**
 9. Save the downloaded file as `service_account.json` in the `solution/` folder
-
-**Gmail Credentials:**
-- **Account:** studentapplication072025@gmail.com
-- **Password:** Admin123!
 
 ### 2. Ensure Docker Environment is Running
 
@@ -52,36 +52,39 @@ docker compose up -d
   ```
 - Runs all unit tests inside the exporter container.
 
-## Google Sheets Integration
+## Architecture Overview
 
-- **Sheet ID:** Configure in `docker-compose.yml` as `GOOGLE_SHEET_ID`
-- **Service Account:** Place `service_account.json` in `kpi_extractor/solution/` (see example below)
-- **Sheet ID:** 1qLj25khFkq9CREaK4f1GxsHmrQ_8k9W_Ptjp-Ar46uE
-- **Gmail Account:** studentapplication072025@gmail.com
-- **Gmail Password:** Admin123!
+### Data Sources
+- **PostgreSQL:** Views and edits metrics (6 weeks of historical data)
+- **Prometheus:** Alarm metrics (15 different alarm types)
 
-### Example `service_account.json` content
-```json
-{
-  "type": "service_account",
-  "project_id": "your-project-id",
-  "private_key_id": "your-private-key-id",
-  "private_key": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n",
-  "client_email": "your-service-account@your-project.iam.gserviceaccount.com",
-  "client_id": "your-client-id",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/your-service-account%40your-project.iam.gserviceaccount.com"
-}
+### Export Options
+1. **Google Sheets Integration** (Primary)
+   - Requires `service_account.json` credentials
+   - Configured via `GOOGLE_SHEET_ID` in docker-compose.yml
+   - Exports to specified Google Sheet
+   - **Sheets created:**
+     - `prometheus_alarms` - Alarm data from Prometheus
+     - `postgres_metrics` - Views/edits data from PostgreSQL
+
+2. **Local Excel Export** (Fallback)
+   - Automatic fallback if Google Sheets fails
+   - Creates `sheets.xlsx` in container/app directory
+   - No additional configuration required
+
+### Service Architecture
 ```
-### Local Excel Export (Fallback)
-- **Automatic fallback** if Google Sheets connection fails
-- **File:** `sheets.xlsx` (created in container/app directory)
-- **Sheets:** 
-  - `prometheus_alarms` - Alarm data from Prometheus
-  - `postgres_metrics` - Views/edits data from PostgreSQL
-- **No configuration required** - works automatically when Google Sheets is unavailable
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   PostgreSQL    │    │   Prometheus    │    │  Export Script  │
+│  (Views/Edits) │───▶│   (Alarms)      │───▶│  (export_kpis)  │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+                                                       │
+                                                       ▼
+                                              ┌─────────────────┐
+                                              │  Google Sheets  │
+                                              │  or Excel File  │
+                                              └─────────────────┘
+```
 
 
 ## Cleanup
@@ -100,3 +103,20 @@ docker compose down -v
    ```bash
    docker compose build kpi-exporter
    ```
+
+
+### Example `service_account.json` content
+```json
+{
+  "type": "service_account",
+  "project_id": "your-project-id",
+  "private_key_id": "your-private-key-id",
+  "private_key": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n",
+  "client_email": "your-service-account@your-project.iam.gserviceaccount.com",
+  "client_id": "your-client-id",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/your-service-account%40your-project.iam.gserviceaccount.com"
+}
+```
