@@ -1,8 +1,9 @@
-psycopg2-binary
-pandas
-requests
-gspread
-google-auth
-openpyxl
-google-api-python-client
-pytest
+psycopg2-binary==2.9.10
+pandas==2.3.1
+requests==2.32.4
+gspread==6.2.1
+google-auth==2.40.3
+openpyxl==3.1.5
+google-api-python-client==2.177.0
+pytest==8.4.1
+

@@ -25,6 +25,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+.pytest_cache/ 
 
 # Virtual environments
 .env
@@ -34,6 +35,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+
 
 # IDE
 .vscode/
@@ -54,7 +56,8 @@ Thumbs.db
 # Logs
 *.log
 
+
 # Student submissions (if used for evaluation)
 submissions/
 solutions/ 
-.pytest_cache/ 
+service_account.json

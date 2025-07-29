@@ -91,7 +91,7 @@ services:
       - POSTGRES_PASSWORD=adminpass123
       - POSTGRES_PORT=5432
       - PROM_URL=http://prometheus:9090
-      - GOOGLE_SHEET_ID=1EGVPWB4kc49Fqo4genpmdU9Zol3wNMycvQlzR74yCPA
+      - GOOGLE_SHEET_ID=1qLj25khFkq9CREaK4f1GxsHmrQ_8k9W_Ptjp-Ar46uE
     depends_on:
       - postgres
       - prometheus
