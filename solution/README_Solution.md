@@ -28,6 +28,9 @@ This folder contains the complete solution for extracting KPIs from PostgreSQL a
 7. Select **JSON** format
 8. Click **Create**
 9. Save the downloaded file as `service_account.json` in the `solution/` folder
+10. **Reference:** See the screenshot below for visual guidance
+
+![Google Cloud Console - Service Account Keys Location](console_credentials.png)
 
 ### 2. Ensure Docker Environment is Running
 
