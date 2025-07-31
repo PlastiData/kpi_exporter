@@ -1,10 +1,10 @@
 # Google Sheets KPI Exporter - Solution Guide
 
-This folder contains the complete solution for extracting KPIs from PostgreSQL and Prometheus and exporting them to Google Sheets. It includes:
+This folder contains the complete solution for extracting KPIs from Grafana dashboards and exporting them to Google Sheets. It includes:
 
-- **`export_kpis.py`** - Main script that queries PostgreSQL and Prometheus data
-- **`service_account.json`** - Google Sheets API credentials (must be download it)
-- **`tests/`** - Test script for data fetching, export functions, transformation, and connection functions
+- **`export_kpis.py`** - Main script that queries Grafana dashboards via API
+- **`service_account.json`** - Google Sheets API credentials (must be downloaded)
+- **`tests/`** - Test scripts for data fetching, export functions, transformation, and connection functions
 - **`Dockerfile`** - Container configuration for the exporter service
 - **`requirements.txt`** - Python dependencies
 
@@ -39,15 +39,15 @@ Make sure the Docker environment is running:
 ```bash
 docker compose up -d
 ```
-(Wait ~30 seconds for initialization)
+(Wait ~2 minutes for initialization the alarms)
 
 ### 3. How to Run the solution
 
-1. **Export KPIs:**
+1. **Export KPIs via Grafana API (Recommended):**
   ```bash
   docker compose run --rm sheets-exporter
   ```
-- Fetches data from Prometheus and PostgreSQL, exports to the configured Google Sheet.
+- Extracts queries from Grafana dashboards and executes them via Grafana API
 
 2. **Run Tests:**
   ```bash
@@ -58,37 +58,30 @@ docker compose up -d
 ## Architecture Overview
 
 ### Data Sources
-- **PostgreSQL:** Views and edits metrics (6 weeks of historical data)
-- **Prometheus:** Alarm metrics (15 different alarm types)
+- **Grafana Dashboards:** Views and edits metrics, alarm metrics via dashboard queries
 
-### Export Options
-1. **Google Sheets Integration** (Primary)
+### Export to Google Sheets
+
    - Requires `service_account.json` credentials
    - Configured via `GOOGLE_SHEET_ID` in docker-compose.yml
    - Exports to specified Google Sheet
    - **Sheets created:**
-     - `prometheus_alarms` - Alarm data from Prometheus
-     - `postgres_metrics` - Views/edits data from PostgreSQL
+     - `Alarms Dashboard` - Alarm data from Prometheus with total counts for the past 30 minutes
+     - `Views and Edits` - Views and edits data from PostgreSQL for the past 6 weeks with general and internal views
 
-2. **Local Excel Export** (Fallback)
-   - Automatic fallback if Google Sheets fails
-   - Creates `sheets.xlsx` in container/app directory
-   - No additional configuration required
 
 ### Service Architecture
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   PostgreSQL    │    │   Prometheus    │    │  Export Script  │
-│  (Views/Edits) │───▶│   (Alarms)      │───▶│  (export_kpis)  │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-                                                       │
-                                                       ▼
-                                              ┌─────────────────┐
-                                              │  Google Sheets  │
-                                              │  or Excel File  │
-                                              └─────────────────┘
-```
 
+**Grafana API Flow (7 Steps):**
+```
+**Step-by-Step Flow:**
+1. **Dashboard Discovery** - Connect to Grafana API and get available dashboards
+2. **Query Extraction** - Extract PromQL/SQL queries from dashboard panels
+3. **API Execution** - Execute queries via Grafana API with appropriate time ranges
+4. **Data Processing** - Convert Grafana API responses to pandas DataFrames
+5. **Data Transformation** - Transform Prometheus time series and combine PostgreSQL data
+6. **Data Validation** - Ensure data quality and handle missing values
+7. **Export** - Export to Google Sheets with proper formatting
 
 ## Cleanup
 
@@ -106,7 +99,6 @@ docker compose down -v
    ```bash
    docker compose build kpi-exporter
    ```
-
 
 ### Example `service_account.json` content
 ```json
